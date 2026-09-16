@@ -77,6 +77,8 @@ Open the terminal in the project folder and run:
 ```bash
 pip install flask
 
+
+
 2..### create the database
 python database.py
 
