@@ -19,7 +19,7 @@ The backend provides APIs to:
 - Prevent unavailable books from being borrowed
 - Store borrowing and return history
 
-A simple frontend is included to interact with the library system.
+The frontend provides a simple web interface for interacting with the library system.
 
 ## Features
 
@@ -136,11 +136,11 @@ The frontend is created using HTML, CSS, and JavaScript.
 
 The main frontend page is:
 
-templates/index.html
+`templates/index.html`
 
 The styling is stored in:
 
-static/style.css
+`static/style.css`
 
 JavaScript uses the `fetch()` function to communicate with the Flask backend.
 
@@ -154,16 +154,15 @@ The frontend allows users to:
 
 ## How to Run the Application
 
-### 1. Install Dependencies
+### 1. Install Flask
 
 Open a terminal in the project folder and run:
 
 ```bash
+pip install flask
+
 pip install -r requirements.txt
 
-You can also install Flask directly:
-
-pip install flask
 2. Create the Database
 
 Run:
@@ -173,7 +172,6 @@ python database.py
 You should see:
 
 All tables created successfully!
-
 3. Start the Flask Application
 
 Run:
@@ -183,13 +181,11 @@ python app.py
 The application will run at:
 
 http://127.0.0.1:5000/
-
 4. Open the Web Interface
 
 Open the following address in your browser:
 
 http://127.0.0.1:5000/
-
 Example API Requests
 Add a Book
 
@@ -234,8 +230,6 @@ PUT /members/1
 Error Handling
 
 The backend checks important conditions before performing operations.
-
-For example:
 
 If a book does not exist, the system returns a book-not-found message.
 If a book is already borrowed, the system prevents another member from borrowing it.
@@ -282,6 +276,5 @@ Dashboard and statistics
 Note
 
 This project was developed as a student backend project with AI-assisted learning and guidance.
-
 
 
