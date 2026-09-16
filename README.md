@@ -69,10 +69,37 @@ Stores:
 - Return date
 
 ## How to Run the Application
-
 ### 1. Install Flask
 
 Open the terminal in the project folder and run:
 
 ```bash
 pip install flask
+```
+
+### 2. Create the Database
+
+Run:
+
+```bash
+python database.py
+```
+
+### 3. Start the Application
+
+Run:
+
+```bash
+python app.py
+```
+
+### 4. Open the Application
+
+Open your browser and go to:
+
+```text
+http://127.0.0.1:5000/
+```
+
+
+
