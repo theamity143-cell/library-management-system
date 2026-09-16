@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+    
+
+<body>
+
+    <h1>Library Management System</h1>
+
+    <h2>Books</h2>
+    <div id="books"></div>
+    <script>
+    fetch("/books")
+        .then(response => response.json())
+        .then(books => {
+            let booksDiv = document.getElementById("books");
+
+            books.forEach(book => {
+                booksDiv.innerHTML += `
+                    <p>
+                        <strong>${book.title}</strong>
+                        - ${book.author}
+                        - ${book.available == 1 ? "Available" : "Not Available"}
+                    </p>
+                `;
+            });
+        });
+</script>
+
+    <h2>Members</h2>
+    <div id="members"></div>
+    <script>
+    fetch("/members")
+        .then(response => response.json())
+        .then(members => {
+            let membersDiv = document.getElementById("members");
+
+            members.forEach(member => {
+                membersDiv.innerHTML += `
+                    <p>
+                        <strong>${member.name}</strong>
+                        - ${member.email}
+                    </p>
+                `;
+            });
+        });
+</script>
+
+    <h2>Borrow / Return</h2>
+    <input type="number" id="bookId" placeholder="Book ID">
+<input type="number" id="memberId" placeholder="Member ID">
+
+<button onclick="borrowBook()">Borrow Book</button>
+<button onclick="returnBook()">Return Book</button>
+
+<p id="message"></p>
+
+  
+    <h2>Borrowing History</h2>
+    <div id="history"></div>
+    <script>
+    fetch("/history")
+        .then(response => response.json())
+        .then(history => {
+            let historyDiv = document.getElementById("history");
+
+            history.forEach(record => {
+                historyDiv.innerHTML += `
+                    <p>
+                        <strong>${record.book}</strong>
+                        - ${record.member}
+                        - Borrowed: ${record.borrow_date}
+                        - Returned: ${record.return_date || "Not returned"}
+                    </p>
+                `;
+            });
+        });
+</script>
+
+</body>
+</html>
+</body>
+</html>
+
+<script>
+    function borrowBook() {
+        let bookId = document.getElementById("bookId").value;
+        let memberId = document.getElementById("memberId").value;
+
+        fetch("/borrow", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                book_id: Number(bookId),
+                member_id: Number(memberId)
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("message").innerText = data.message;
+        });
+    }
+
+function returnBook() {
+    let bookId = document.getElementById("bookId").value;
+    let memberId = document.getElementById("memberId").value;
+
+    fetch("/return", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            book_id: Number(bookId),
+            member_id: Number(memberId)
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("message").innerText = data.message;
+    });
+}
+</script>
